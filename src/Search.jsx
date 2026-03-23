@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './Search.css';
 
 const API_URL = "https://api.openweathermap.org/data/2.5/weather";
-const API_KEY = "4bdd1440650f54035f42ce5c4d7afe7e";
+const API_KEY = "your_api_key_here";
 
 export default function Search({ updateInfo }) {
   const [city, setCity] = useState("");
