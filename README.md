@@ -1,10 +1,15 @@
-# 🌤️ Weather App — React
+# 🌤️ Weather App - React
 
 > **Know Before You Go** — A clean, real-time weather dashboard built with React and Vite.
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-38ef7d?style=for-the-badge)](https://weather-application-kumud-project.vercel.app/)
 [![React](https://img.shields.io/badge/React-18-61dafb?style=for-the-badge&logo=react)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-5-646cff?style=for-the-badge&logo=vite)](https://vitejs.dev/)
+
+---
+
+
+![](./screenshots/image1.png)  ![](./screenshots/image2.png) 
 
 ---
 
