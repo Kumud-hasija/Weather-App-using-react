@@ -2,9 +2,7 @@ import { useState } from 'react';
 import './Search.css';
 
 const API_URL = "https://api.openweathermap.org/data/2.5/weather";
-const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
-console.log(API_URL);
-console.log(API_KEY);
+const API_KEY = import.meta.env.VITE_WEATHER_API_KEY || "";
 
 export default function Search({ updateInfo }) {
   const [city, setCity] = useState("");
