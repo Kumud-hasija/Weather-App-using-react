@@ -29,7 +29,8 @@ export default function WeatherApp() {
       <Search updateInfo={updateInfo} />
       <Info info={weatherInfo} />
 
-      <p className="app-footer">POWERED BY OPENWEATHERMAP</p>
+      <p className="app-footer">Know Before You Go</p>
+      <p className="app-footer">By - Kumud hasija</p>
     </div>
   );
 }
