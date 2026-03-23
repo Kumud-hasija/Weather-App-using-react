@@ -1,71 +1,76 @@
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { AccessAlarm, ThreeDRotation } from '@mui/icons-material';
-import AcUnitIcon from '@mui/icons-material/AcUnit';
-import WhatshotIcon from '@mui/icons-material/Whatshot';
+import './Info.css';
 
-import './Search.css'
-import IMG from './assets/img.webp';
-import HOT_URl from './assets/hot.jpg';
-import COLD_URl from './assets/cold.webp';
-import RAIN_URl from './assets/rain.jpg';
-import ThunderstormIcon from '@mui/icons-material/Thunderstorm';
+function getWeatherMeta(info) {
+  if (info.humidity > 80) {
+    return {
+      icon: "🌧️",
+      bg: "linear-gradient(135deg, #2c3e6b 0%, #4a6fa5 50%, #6b8fcf 100%)",
+      badge: "Rainy",
+    };
+  } else if (info.temp > 30) {
+    return {
+      icon: "☀️",
+      bg: "linear-gradient(135deg, #f7971e 0%, #e05b1a 50%, #c0392b 100%)",
+      badge: "Hot",
+    };
+  } else if (info.temp > 15) {
+    return {
+      icon: "⛅",
+      bg: "linear-gradient(135deg, #11998e 0%, #38ef7d 60%, #56c596 100%)",
+      badge: "Pleasant",
+    };
+  } else {
+    return {
+      icon: "❄️",
+      bg: "linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%)",
+      badge: "Cold",
+    };
+  }
+}
 
-export default function Info({info}){
+export default function Info({ info }) {
+  const meta = getWeatherMeta(info);
 
-    // let info = {
-    //     city :"delhi",
-    //     feelsLike : 24.08,
-    //     temp :25.05,
-    //     tempMin : 25.05,
-    //     tempMax : 25.05,
-    //     humidity:47,
-    //     weather:"haze"
-    // };
-
-    return(
-        <div className="InfoBox" >
-            <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        sx={{ height: 140 }}
-        image={
-          info.humidity>80 ? 
-          RAIN_URl :  
-          info.temp >15 ? 
-          HOT_URl : 
-          COLD_URl 
-        }
-        title="green iguana"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          { info.humidity>80 ? 
-          <ThunderstormIcon/> :  
-          info.temp >15 ? 
-          <WhatshotIcon/> : 
-          <AcUnitIcon/>
-          } 
-          {info.city.toUpperCase()} 
-        </Typography>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }} component={"span"}>
-        <h4>Temperature = {info.temp}&deg;C</h4>
-        <h4>Temperature minimum = {info.tempMin}&deg;C</h4>
-        <h4>Temperature maximum = {info.tempMax}&deg;C</h4>
-        <h4>Humidity = {info.humidity}</h4>
-        <h4>The weather can be described as <b>{info.weather}</b>  and feels like {info.feelsLike}&deg;C</h4>
-        
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>
+  return (
+    <div
+      className="weather-card"
+      key={info.city + info.temp}
+      style={{ background: meta.bg }}
+    >
+      {/* Hero */}
+      <div className="card-hero">
+        <span className="weather-icon">{meta.icon}</span>
+        <div className="city-name">{info.city.toUpperCase()}</div>
+        <span className="weather-badge">{meta.badge}</span>
+        <div className="temp-main">
+          {Math.round(info.temp)}<sup>°C</sup>
         </div>
-    );
+        <p className="weather-desc">{info.weather}</p>
+      </div>
 
+      {/* Stats grid */}
+      <div className="card-stats">
+        <div className="stat-item">
+          <span className="stat-icon">🌡️</span>
+          <span className="stat-label">Feels Like</span>
+          <span className="stat-value">{Math.round(info.feelsLike)}<span>°C</span></span>
+        </div>
+        <div className="stat-item">
+          <span className="stat-icon">💧</span>
+          <span className="stat-label">Humidity</span>
+          <span className="stat-value">{info.humidity}<span>%</span></span>
+        </div>
+        <div className="stat-item">
+          <span className="stat-icon">⬇️</span>
+          <span className="stat-label">Min Temp</span>
+          <span className="stat-value">{Math.round(info.tempMin)}<span>°C</span></span>
+        </div>
+        <div className="stat-item">
+          <span className="stat-icon">⬆️</span>
+          <span className="stat-label">Max Temp</span>
+          <span className="stat-value">{Math.round(info.tempMax)}<span>°C</span></span>
+        </div>
+      </div>
+    </div>
+  );
 }

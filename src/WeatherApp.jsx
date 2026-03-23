@@ -1,27 +1,35 @@
-import React, { useState } from 'react';
-import Search from './Search'
-import Info from './Info'
+import { useState } from 'react';
+import Search from './Search';
+import Info from './Info';
 
+export default function WeatherApp() {
+  const [weatherInfo, setWeatherInfo] = useState({
+    city: "Delhi",
+    feelsLike: 24.08,
+    temp: 25.05,
+    tempMin: 25.05,
+    tempMax: 25.05,
+    humidity: 47,
+    weather: "haze",
+  });
 
-export default function WeatherApp(){
-    const[weatherInfo , setWeatherInfo] = useState({
-        city :"delhi",
-        feelsLike : 24.08,
-        temp :25.05,
-        tempMin : 25.05,
-        tempMax : 25.05,
-        humidity:47,
-        weather:"haze"
-    });
+  const updateInfo = (newInfo) => {
+    setWeatherInfo(newInfo);
+  };
 
-    let updateInfo=(newInfo)=>{
-        setWeatherInfo(newInfo);
-    }
+  return (
+    <div className="app-shell">
+      <header className="app-header">
+        <p className="app-title">Live Forecast</p>
+        <h1 className="app-headline">
+          Weather<br /><span>Dashboard</span>
+        </h1>
+      </header>
 
-    return (
-        <div>
-            <Search updateInfo={updateInfo}/>
-            <Info info={weatherInfo}/>
-        </div>
-    );
+      <Search updateInfo={updateInfo} />
+      <Info info={weatherInfo} />
+
+      <p className="app-footer">POWERED BY OPENWEATHERMAP</p>
+    </div>
+  );
 }

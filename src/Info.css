@@ -1,0 +1,126 @@
+.weather-card {
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  animation: cardIn 0.5s ease;
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hero / top section */
+.card-hero {
+  padding: 32px 28px 24px;
+  text-align: center;
+}
+
+.weather-icon {
+  font-size: 72px;
+  line-height: 1;
+  margin-bottom: 8px;
+  display: block;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.3));
+  animation: floatIcon 3s ease-in-out infinite;
+}
+
+@keyframes floatIcon {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+.city-name {
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+
+.weather-badge {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  backdrop-filter: blur(4px);
+}
+
+.temp-main {
+  font-size: 72px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  margin: 16px 0 4px;
+  font-family: 'Space Mono', monospace;
+}
+
+.temp-main sup {
+  font-size: 28px;
+  vertical-align: super;
+  opacity: 0.8;
+}
+
+.weather-desc {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.75);
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+}
+
+/* Stats grid / bottom section */
+.card-stats {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  padding: 20px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.stat-item {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'Space Mono', monospace;
+}
+
+.stat-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  font-family: 'Space Mono', monospace;
+}
+
+.stat-value span {
+  font-size: 13px;
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.stat-icon {
+  font-size: 18px;
+  margin-bottom: 2px;
+}

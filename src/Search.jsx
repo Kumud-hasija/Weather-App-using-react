@@ -1,73 +1,65 @@
-import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import TextField  from '@mui/material/TextField';
-import './Search.css'
-export default function Search({updateInfo}){
-    let [city , setCity] =useState("");
-    let [error , setError]=useState(false);
-    let API_URL = "https://api.openweathermap.org/data/2.5/weather";
-    let API_KEY = "4bdd1440650f54035f42ce5c4d7afe7e";
+import { useState } from 'react';
+import './Search.css';
 
-    let getInfo = async() =>{
-       try{
-        let response = await fetch(`${API_URL}?q=${city}&appid=${API_KEY}&units=metric`);
-        let jsonResponse = await response.json();
-        console.log(jsonResponse);
+const API_URL = "https://api.openweathermap.org/data/2.5/weather";
+const API_KEY = "4bdd1440650f54035f42ce5c4d7afe7e";
 
-        let result ={
-            city :city,
-            temp : jsonResponse.main.temp,
-            tempMin : jsonResponse.main.temp_min,
-            tempMax : jsonResponse.main.temp_max,
-            humidity : jsonResponse.main.humidity,
-            feelsLike : jsonResponse.main.feels_like,
-            weather : jsonResponse.weather[0].description,
-        };
-        console.log(result);
-        return result;
-       }catch(err){
-            throw err;
-       }
-    };
+export default function Search({ updateInfo }) {
+  const [city, setCity] = useState("");
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-
-    let handleChange =(event)=>{
-        setCity (event.target.value);
-    }
-
-    let handleSubmit =async(event)=>{
-        try{
-            event.preventDefault();
-            setCity("");
-            let newInfo = await getInfo();
-            updateInfo(newInfo);
-        }catch(err){
-            setError(true);
-        }
-    }
-
-
-
-    return(
-        <div className='SeachBox'>
-            <h2>Search for weather forecast</h2>
-            <form onSubmit={handleSubmit}>
-            <TextField 
-            id="city" 
-            label="City name" 
-            variant="outlined" 
-            required  
-            value={city}
-            onChange={handleChange}
-            />
-            <br></br><br></br>
-            <Button 
-            variant="contained" 
-            type="submit"
-            > Search </Button>
-            </form>
-            <br></br><br></br>
-            {error && <p style={{color:"red"}}>No such place exists !</p>}
-        </div>
+  const getInfo = async (cityName) => {
+    const response = await fetch(
+      `${API_URL}?q=${cityName}&appid=${API_KEY}&units=metric`
     );
+    if (!response.ok) throw new Error("City not found");
+    const json = await response.json();
+    return {
+      city: json.name,
+      temp: json.main.temp,
+      tempMin: json.main.temp_min,
+      tempMax: json.main.temp_max,
+      humidity: json.main.humidity,
+      feelsLike: json.main.feels_like,
+      weather: json.weather[0].description,
+    };
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!city.trim()) return;
+    setLoading(true);
+    setError(false);
+    try {
+      const info = await getInfo(city.trim());
+      updateInfo(info);
+      setCity("");
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="search-card">
+      <p className="search-label">🌍 Search City</p>
+      <form className="search-row" onSubmit={handleSubmit}>
+        <input
+          className="search-input"
+          type="text"
+          placeholder="Enter city name…"
+          value={city}
+          onChange={(e) => { setCity(e.target.value); setError(false); }}
+        />
+        <button className="search-btn" type="submit" disabled={loading}>
+          {loading ? "⏳" : "🔍"}
+        </button>
+      </form>
+      {error && (
+        <p className="error-msg">⚠️ City not found. Please check the spelling.</p>
+      )}
+    </div>
+  );
 }
